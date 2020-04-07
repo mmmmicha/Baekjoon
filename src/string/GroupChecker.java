@@ -11,7 +11,8 @@ import java.util.Scanner;
  * 테스트명 : 그룹단어체커
  * @Kwanghyeon
  * 
- * 아직 불완전
+ * 2020-04-06 아직 불완전
+ * 2020-04-07 해결
  * 
  * */
 
@@ -55,7 +56,10 @@ public class GroupChecker
 					arrl.add(temp.substring(j, j+1));
 				}
 			}
-			System.out.println(check);
+			
+			//System.out.println(check);
+			
+			arrl.removeAll(arrl);
 			if(!check)
 			{
 				answer++;
