@@ -3,6 +3,7 @@ package binarysearch;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /*
  * 테스트번호 : 12015번
@@ -10,6 +11,7 @@ import java.io.InputStreamReader;
  * @Kwanghyeon
  * 
  * 2020-04-08 쉽지않음 기준을 뭘로잡아야할지...
+ * 2020-04-10 갈피는 잡음. 기준잡기 계속
  * 
  * */
 
@@ -29,11 +31,36 @@ public class TheLongest
 		int min = 123456789;
 		int mid = 0;
 		
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		
 		for(int i=0; i<inp.length; i++)
 		{
 			inp[i] = Integer.parseInt(temparr[i]);
-			max = Math.max(inp[i], max);
-			min = Math.min(inp[i], min);
+			
+			if(arr.isEmpty())
+			{
+				arr.add(inp[i]);
+			}
+			else if(arr.get(0)>inp[i])
+			{
+				arr.add(inp[i]);
+				arr.remove(0);
+			}
+			else
+			{
+				max = arr.get(arr.size()-1);
+				min = arr.get(0);
+				
+				while(inp[i])
+				{
+					mid = (max+min)/2;
+					
+					for(int j=0; j<arr.size(); j++)
+					{
+						
+					}
+				}
+			}
 		}
 		
 		int ansmax = 0;
