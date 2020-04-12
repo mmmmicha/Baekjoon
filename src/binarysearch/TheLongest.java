@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * 
  * 2020-04-08 쉽지않음 기준을 뭘로잡아야할지...
  * 2020-04-10 갈피는 잡음. 기준잡기 계속
+ * 2020-04-12 max, min 그리고 if 조건문 등 부등호를 정확히 잡기가 어려움(해결)
  * 
  * */
 
@@ -27,75 +28,45 @@ public class TheLongest
 		
 		int[] inp = new int[temparr.length];
 		
-		int max = 0;
-		int min = 123456789;
-		int mid = 0;
+		int max;
+		int min;
+		int mid;
 		
 		ArrayList<Integer> arr = new ArrayList<Integer>();
+		arr.add(-5555);
 		
-		for(int i=0; i<inp.length; i++)
+		for(int i=0; i<n; i++)
 		{
 			inp[i] = Integer.parseInt(temparr[i]);
+			//System.out.println("ans : " + inp[i]);
 			
-			if(arr.isEmpty())
+			if(arr.get(arr.size()-1)<inp[i])
 			{
 				arr.add(inp[i]);
-			}
-			else if(arr.get(0)>inp[i])
-			{
-				arr.add(inp[i]);
-				arr.remove(0);
 			}
 			else
 			{
-				max = arr.get(arr.size()-1);
-				min = arr.get(0);
+				max = arr.size()-1;
+				min = 0;
 				
-				while(inp[i])
+				while(min<max)
 				{
 					mid = (max+min)/2;
 					
-					for(int j=0; j<arr.size(); j++)
-					{
-						
-					}
+					if(inp[i]>arr.get(mid))
+						min = mid+1;
+					else
+						max = mid;
 				}
+				
+				//System.out.println("max : " + max + ", min : " + min + ", mid : " + mid);
+				//System.out.println("get(max) : " + arr.get(max) + ", inp : " + inp[i]);
+				
+				arr.set(max, inp[i]);
 			}
 		}
 		
-		int ansmax = 0;
-		
-		while(min<=max)
-		{
-			mid = (max+min)/2;
-			int temp = inp[0]+mid;
-			int ans = 1;
-			
-			for(int t : inp)
-			{
-				if(t>=temp && t!=inp[0])
-				{
-					temp=t+mid;
-					ans++;
-				}
-					
-			}
-			
-			//System.out.println("max : " + max + ", min : " + min + ", mid : " + mid + ", ans : " + ans + ", ansmax : " + ansmax);
-			
-			if(ansmax<=ans)
-			{
-				max = mid-1;
-				ansmax = ans;
-			}
-			else	
-				min = mid+1;
-			
-		}
-		
-		System.out.println(ansmax);
-		
-		
+		System.out.println(arr.size()-1);
 		
 	}
 }
