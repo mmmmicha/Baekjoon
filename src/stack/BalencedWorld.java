@@ -12,6 +12,8 @@ import java.util.Stack;
  * 
  * 2020-04-08 런타임에러
  * 
+ * 2020-04-13 String 과 StringBuilder 와의 메모리 사용에 대해 확실히 이해할 필요가 있음.(해결)
+ * 
  * */
 
 public class BalencedWorld
@@ -20,26 +22,30 @@ public class BalencedWorld
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		StringBuilder sb = null;
+		//StringBuilder sb = new StringBuilder();
+		Stack<String> st = new Stack<String>();
+		String sb = null;
 		
 		do
 		{
-			sb = new StringBuilder(br.readLine());
-			Stack<String> st = new Stack<String>();
+			//sb.delete(0, sb.length());
+			//sb.append(br.readLine());
+			sb = br.readLine();
+			st.clear();
 			
 			int i=0;
 			
 			for(i=0; i<sb.length(); i++)
 			{
-				if(sb.toString().substring(i, i+1).equals("("))
+				if(sb.substring(i, i+1).equals("("))
 				{
 					st.push("(");
 				}
-				else if(sb.toString().substring(i, i+1).equals(")"))
+				else if(sb.substring(i, i+1).equals(")"))
 				{
 					if(st.isEmpty())
 					{
-						System.out.println("NO");
+						System.out.println("no");
 						break;
 					}
 					else if(st.peek().equals("("))
@@ -48,19 +54,19 @@ public class BalencedWorld
 					}
 					else
 					{
-						System.out.println("NO");
+						System.out.println("no");
 						break;
 					}
 				}
-				if(sb.toString().substring(i, i+1).equals("["))
+				if(sb.substring(i, i+1).equals("["))
 				{
 					st.push("[");
 				}
-				else if(sb.toString().substring(i, i+1).equals("]"))
+				else if(sb.substring(i, i+1).equals("]"))
 				{
 					if(st.isEmpty())
 					{
-						System.out.println("NO");
+						System.out.println("no");
 						break;
 					}
 					else if(st.peek().equals("["))
@@ -69,21 +75,21 @@ public class BalencedWorld
 					}
 					else
 					{
-						System.out.println("NO");
+						System.out.println("no");
 						break;
 					}
 				}
+				else if(!sb.startsWith(".") && sb.substring(i, i+1).equals("."))
+				{
+					if(st.isEmpty())
+						System.out.println("yes");
+					else
+						System.out.println("no");
+					break;
+				}
 			}
 			
-			if(!sb.toString().startsWith(".") && sb.toString().substring(i-1, i).equals("."))
-			{
-				if(st.isEmpty())
-					System.out.println("YES");
-				else
-					System.out.println("NO");
-			}
 			
-			
-		} while (!sb.toString().startsWith("."));
+		} while (!sb.startsWith("."));
 	}
 }
